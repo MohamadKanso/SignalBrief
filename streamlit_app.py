@@ -130,6 +130,7 @@ def topbar() -> None:
           <div class="brand"><div class="mark"></div><div>SignalBrief</div></div>
           <div class="nav">
             <a href="https://mohamadkanso.github.io/SignalBrief/process.html" target="_blank">Process</a>
+            <a href="https://mohamadkanso.github.io/SignalBrief/why.html" target="_blank">Why</a>
             <a href="https://github.com/MohamadKanso/SignalBrief" target="_blank">GitHub</a>
           </div>
         </div>

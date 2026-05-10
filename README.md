@@ -1,16 +1,28 @@
 <p align="right">
   <a href="https://mohamadkanso.github.io/SignalBrief/process.html"><strong>Process</strong></a>
+  ·
+  <a href="https://mohamadkanso.github.io/SignalBrief/why.html"><strong>Why</strong></a>
 </p>
 
 # SignalBrief
 
 Autonomous AI analyst briefings for company and market research.
 
-[Preview](https://mohamadkanso.github.io/SignalBrief/) · [Process](https://mohamadkanso.github.io/SignalBrief/process.html)
+[Preview](https://mohamadkanso.github.io/SignalBrief/) · [Process](https://mohamadkanso.github.io/SignalBrief/process.html) · [Why I built it](https://mohamadkanso.github.io/SignalBrief/why.html)
 
 SignalBrief is a portfolio-grade AI analyst workspace. You give it a company name, sector, or research topic, and a LangGraph agent chain plans the search, collects sources, builds a retrieval index, extracts facts, identifies risks and opportunities, scores sentiment, and produces a structured briefing that can be exported as JSON.
 
 I built this to mirror the research workflow used in consulting, hedge fund, private equity, and enterprise strategy teams: collect evidence quickly, separate signal from noise, and turn messy public information into a defensible executive brief.
+
+## Screenshots
+
+![SignalBrief Streamlit analyst workspace](docs/assets/signalbrief-app.png)
+
+![SignalBrief GitHub Pages preview](docs/assets/signalbrief-preview.png)
+
+![SignalBrief process page](docs/assets/signalbrief-process.png)
+
+![SignalBrief why page](docs/assets/signalbrief-why.png)
 
 ## What it does
 
@@ -72,7 +84,7 @@ streamlit run streamlit_app.py
 2. Deploy the Streamlit app to Streamlit Community Cloud.
 3. Set `TAVILY_API_KEY` in Streamlit secrets if live search is needed.
 4. Keep the GitHub Pages preview enabled from `/docs`.
-5. Use the `Process` page as the visual build narrative for recruiters.
+5. Use the `Process` and `Why` pages as the visual build narrative for recruiters.
 6. Optional: move `.github/ci-template.yml` into `.github/workflows/ci.yml` when your GitHub token has `workflow` scope.
 
 ## Why I made this

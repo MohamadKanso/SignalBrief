@@ -39,14 +39,28 @@
     .node span { color:var(--muted); font-size:14px; line-height:1.42; }
     .why { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
     .why .card { min-height:180px; }
-    @media (max-width:900px) { .intro, .why, .diagram { grid-template-columns:1fr; } .timeline:before { display:none; } }
+    .deep-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+    .code-window {
+      background:#111827; color:#d1fae5; border-radius:8px; padding:18px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:13px; line-height:1.55;
+      border:1px solid rgba(17,24,39,.2); box-shadow:0 22px 70px rgba(17,24,39,.12); position:relative; overflow:hidden;
+    }
+    .code-window:before {
+      content:""; position:absolute; left:0; right:0; top:0; height:3px;
+      background:linear-gradient(90deg,var(--blue),var(--teal)); animation:scan 2.6s ease-in-out infinite alternate;
+    }
+    .quality { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px; }
+    .check { background:white; border:1px solid var(--line); border-radius:8px; padding:14px; min-height:116px; }
+    .check b { display:block; margin-bottom:8px; }
+    .check span { color:var(--muted); font-size:14px; line-height:1.45; }
+    @media (max-width:900px) { .intro, .why, .diagram, .deep-grid, .quality { grid-template-columns:1fr; } .timeline:before { display:none; } }
   </style>
 </head>
 <body>
   <div class="shell">
     <header>
       <div class="brand"><div class="mark"></div>SignalBrief</div>
-      <nav><a href="index.html">Preview</a><a href="https://github.com/MohamadKanso/SignalBrief">GitHub</a></nav>
+      <nav><a href="index.html">Preview</a><a href="why.html">Why</a><a href="https://github.com/MohamadKanso/SignalBrief">GitHub</a></nav>
     </header>
     <section class="intro">
       <h1>How I built the analyst agent.</h1>
@@ -65,6 +79,27 @@
       <div class="step"><div class="number">3</div><div class="card"><h2>Ground the output</h2><p>The app builds a retrieval index over collected source chunks and attaches evidence snippets to the structured output. The goal is not just a nice answer, but a brief that can explain where each claim came from.</p></div></div>
       <div class="step"><div class="number">4</div><div class="card"><h2>Make it recruiter friendly</h2><p>I added a deterministic demo mode because portfolio projects should be runnable without API keys. If Tavily is configured, the same interface can switch into live web-search mode.</p></div></div>
       <div class="step"><div class="number">5</div><div class="card"><h2>Package it like production</h2><p>The repository includes tests, Ruff linting, typed Pydantic models, CI, Streamlit theming, a preview page, and deployment steps so the project reads as engineering work rather than a notebook experiment.</p></div></div>
+      <div class="step"><div class="number">6</div><div class="card"><h2>Design the product surface</h2><p>I wanted the first screen to feel like a serious analyst terminal: compact, readable, evidence-led, and visually polished. The app therefore opens directly on the working briefing surface instead of hiding the product behind a marketing page.</p></div></div>
+      <div class="step"><div class="number">7</div><div class="card"><h2>Verify the real experience</h2><p>I checked the app in a browser at desktop and mobile sizes, fixed raw HTML rendering, removed stale Streamlit width parameters, and kept the screenshots in the README so reviewers can see the product before they run it.</p></div></div>
+    </section>
+    <section class="deep-grid">
+      <div class="card">
+        <h2>Implementation logic</h2>
+        <p>The build separates orchestration, retrieval, extraction, and UI. That keeps the system easy to explain in interviews: the graph coordinates the work, the retrieval layer grounds the claims, and the Streamlit interface makes the output usable.</p>
+      </div>
+      <div class="code-window">StateGraph
+  -> planner_node(topic)
+  -> searcher_node(queries)
+  -> reader_node(source_chunks)
+  -> extractor_node(facts, metrics)
+  -> analyst_node(risks, opportunities)
+  -> writer_node(executive_summary)</div>
+    </section>
+    <section class="quality" aria-label="Quality checks">
+      <div class="check"><b>Runnable without keys</b><span>Demo mode gives recruiters an instant product experience.</span></div>
+      <div class="check"><b>Live-search ready</b><span>Tavily activates when the environment contains an API key.</span></div>
+      <div class="check"><b>Typed outputs</b><span>Pydantic models keep analyst sections consistent and exportable.</span></div>
+      <div class="check"><b>Tested core</b><span>pytest covers the briefing pipeline and retrieval relevance.</span></div>
     </section>
     <section class="why">
       <div class="card"><h2>Why this project fits my CV</h2><p>My CV already shows RAG, local AI, data pipelines, and automation. SignalBrief combines those themes into one high-signal product that mirrors consulting, hedge fund, and enterprise AI analyst work.</p></div>

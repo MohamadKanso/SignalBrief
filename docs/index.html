@@ -92,8 +92,42 @@
     .bar { height: 8px; border-radius: 99px; background: #e8eef7; margin: 13px 0; overflow:hidden; }
     .bar span { display:block; height:100%; width:70%; background: linear-gradient(90deg, var(--blue), var(--teal)); animation: fill 2.5s ease-in-out infinite alternate; }
     @keyframes fill { from { width: 42%; } to { width: 88%; } }
+    .workflow { margin-top: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 16px; align-items: stretch; }
+    .stage-list { display: grid; gap: 10px; }
+    .stage {
+      display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start;
+      background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 8px; padding: 14px;
+    }
+    .stage-number {
+      width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+      background: var(--ink); color: white; font-weight: 900; font-size: 13px;
+    }
+    .stage b { display: block; margin-bottom: 4px; }
+    .stage span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+    .brief-board {
+      background: rgba(255,255,255,.92); border: 1px solid rgba(17,24,39,.1); border-radius: 8px;
+      padding: 16px; box-shadow: 0 24px 70px rgba(17,24,39,.09);
+    }
+    .board-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
+    .score { font-size: 34px; font-weight: 900; color: var(--blue); }
+    .evidence-card {
+      border: 1px solid #e7edf5; border-radius: 8px; padding: 12px; background: #fbfdff; margin: 10px 0;
+      border-left: 3px solid var(--blue);
+    }
+    .evidence-card.risk { border-left-color: var(--red); background: #fff8f8; }
+    .json {
+      margin-top: 12px; background: #111827; color: #d1fae5; border-radius: 8px; padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.55;
+      overflow: hidden; position: relative;
+    }
+    .json:after {
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      animation: sweep 2.8s linear infinite;
+    }
+    @keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
     @media (max-width: 880px) {
-      .hero, .grid, .viz { grid-template-columns: 1fr; }
+      .hero, .grid, .viz, .workflow { grid-template-columns: 1fr; }
       .query { grid-template-columns: 1fr; }
       .metrics { grid-template-columns: 1fr; }
     }
@@ -105,6 +139,7 @@
       <div class="brand"><div class="mark"></div>SignalBrief</div>
       <nav>
         <a href="process.html">Process</a>
+        <a href="why.html">Why</a>
         <a href="https://github.com/MohamadKanso/SignalBrief">GitHub</a>
       </nav>
     </header>
@@ -116,6 +151,7 @@
           <div class="actions">
             <a class="button primary" href="https://github.com/MohamadKanso/SignalBrief">View repository</a>
             <a class="button" href="process.html">Read the build process</a>
+            <a class="button" href="why.html">Why I built it</a>
           </div>
         </div>
         <div class="terminal">
@@ -151,6 +187,27 @@
         <div class="mini"><div class="label">Source retrieval</div><div class="bar"><span></span></div><p>Search results are deduplicated, chunked, and ranked by evidence relevance.</p></div>
         <div class="mini"><div class="label">Structured extraction</div><div class="bar"><span></span></div><p>Pydantic models keep risks, metrics, facts, and citations clean enough to export.</p></div>
         <div class="mini"><div class="label">Analyst output</div><div class="bar"><span></span></div><p>The Streamlit UI behaves like a compact research terminal for fast decision support.</p></div>
+      </section>
+      <section class="workflow" aria-label="How the tool works">
+        <div class="stage-list">
+          <div class="stage"><div class="stage-number">1</div><div><b>Enter a target</b><span>The user gives a company, sector, or topic. The planner turns it into focused research queries.</span></div></div>
+          <div class="stage"><div class="stage-number">2</div><div><b>Collect evidence</b><span>The search agent gathers source material, deduplicates URLs, and falls back to demo sources when no key is present.</span></div></div>
+          <div class="stage"><div class="stage-number">3</div><div><b>Retrieve the strongest snippets</b><span>The reader chunks documents and ranks evidence so claims can be traced back to source text.</span></div></div>
+          <div class="stage"><div class="stage-number">4</div><div><b>Produce the brief</b><span>The analyst nodes output metrics, risks, opportunities, sentiment, and exportable JSON.</span></div></div>
+        </div>
+        <div class="brief-board">
+          <div class="board-head">
+            <div><div class="label">Preview output</div><h2 style="margin:6px 0 0">Structured analyst briefing</h2></div>
+            <div class="score">0.18</div>
+          </div>
+          <div class="evidence-card"><b>Opportunity</b><br><span class="time">Demand, enterprise adoption, and operating leverage are the strongest upside themes.</span></div>
+          <div class="evidence-card risk"><b>Risk</b><br><span class="time">Execution quality, market pressure, and regulatory scrutiny need deeper diligence.</span></div>
+          <div class="json">{
+  "topic": "NVIDIA AI infrastructure",
+  "sentiment": "Constructive",
+  "sections": ["metrics", "risks", "opportunities", "sources"]
+}</div>
+        </div>
       </section>
     </main>
   </div>
