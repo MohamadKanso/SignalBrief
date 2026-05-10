@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SignalBrief Preview</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #667085;
+      --line: #d8e1ee;
+      --blue: #1266f1;
+      --teal: #02a79d;
+      --amber: #d97706;
+      --red: #dc2626;
+      --bg: #f7f9fc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(18,102,241,.08) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(2,167,157,.06) 1px, transparent 1px),
+        var(--bg);
+      background-size: 44px 44px;
+    }
+    .shell { width: min(1180px, calc(100vw - 34px)); margin: 0 auto; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 0; border-bottom: 1px solid rgba(17,24,39,.08);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 850; }
+    .mark {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      box-shadow: 0 14px 34px rgba(18,102,241,.22);
+      position: relative;
+    }
+    .mark:after {
+      content: ""; position: absolute; inset: 8px;
+      border: 2px solid white; border-left: 0; border-bottom: 0; transform: rotate(45deg);
+    }
+    nav a { color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 800; margin-left: 20px; }
+    main { padding: 42px 0 64px; }
+    .hero { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: center; }
+    h1 { font-size: clamp(44px, 7vw, 92px); letter-spacing: 0; line-height: .9; margin: 0 0 18px; }
+    p { color: var(--muted); font-size: 18px; line-height: 1.6; }
+    .actions { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 44px; padding: 0 18px; border-radius: 8px; text-decoration: none;
+      font-weight: 850; border: 1px solid rgba(17,24,39,.1); color: var(--ink); background: white;
+    }
+    .button.primary { color: white; background: var(--ink); box-shadow: 0 18px 44px rgba(17,24,39,.18); }
+    .terminal {
+      background: rgba(255,255,255,.9); border: 1px solid rgba(17,24,39,.1); border-radius: 8px;
+      box-shadow: 0 28px 80px rgba(17,24,39,.12); padding: 18px;
+    }
+    .query { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 14px; }
+    .input {
+      min-height: 46px; border: 1px solid rgba(17,24,39,.14); border-radius: 8px;
+      background: white; display: flex; align-items: center; padding: 0 14px; color: var(--muted); font-weight: 750;
+    }
+    .run { min-height: 46px; border-radius: 8px; background: var(--ink); color: white; padding: 0 16px; display:flex; align-items:center; font-weight:850; }
+    .grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 14px; }
+    .panel {
+      background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 8px; padding: 14px;
+      min-height: 168px;
+    }
+    .label { font-size: 12px; color: var(--muted); text-transform: uppercase; font-weight: 850; letter-spacing: .08em; }
+    .agent { display: grid; grid-template-columns: 26px 1fr auto; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; }
+    .agent:last-child { border-bottom: 0; }
+    .dot { width: 22px; height: 22px; border-radius: 7px; background: #e8f1ff; position: relative; }
+    .dot:after {
+      content: ""; position: absolute; inset: 7px; background: var(--blue); border-radius: 50%;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+    @keyframes pulse { 0%,100% { transform: scale(.7); opacity: .55; } 50% { transform: scale(1.25); opacity: 1; } }
+    .time { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .summary { font-weight: 760; line-height: 1.45; font-size: 18px; margin: 12px 0 16px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .metric { border: 1px solid #e7edf5; border-radius: 8px; padding: 12px; }
+    .metric strong { display: block; font-size: 24px; }
+    .riskgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    .chip { border-radius: 8px; padding: 10px; background: #f8fbff; border-left: 3px solid var(--blue); font-size: 14px; }
+    .chip.risk { border-left-color: var(--red); background: #fff7f7; }
+    .viz { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 22px; }
+    .mini { background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 8px; padding: 16px; min-height: 118px; overflow:hidden; }
+    .bar { height: 8px; border-radius: 99px; background: #e8eef7; margin: 13px 0; overflow:hidden; }
+    .bar span { display:block; height:100%; width:70%; background: linear-gradient(90deg, var(--blue), var(--teal)); animation: fill 2.5s ease-in-out infinite alternate; }
+    @keyframes fill { from { width: 42%; } to { width: 88%; } }
+    @media (max-width: 880px) {
+      .hero, .grid, .viz { grid-template-columns: 1fr; }
+      .query { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="mark"></div>SignalBrief</div>
+      <nav>
+        <a href="process.html">Process</a>
+        <a href="https://github.com/MohamadKanso/SignalBrief">GitHub</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <h1>AI analyst briefings in seconds.</h1>
+          <p>SignalBrief turns a company name or topic into a source-grounded research memo with risks, opportunities, metrics, sentiment, and exportable structured output.</p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/MohamadKanso/SignalBrief">View repository</a>
+            <a class="button" href="process.html">Read the build process</a>
+          </div>
+        </div>
+        <div class="terminal">
+          <div class="query">
+            <div class="input">NVIDIA AI infrastructure</div>
+            <div class="run">Run Briefing</div>
+          </div>
+          <div class="grid">
+            <div class="panel">
+              <div class="label">Agent chain</div>
+              <div class="agent"><div class="dot"></div><b>Planner</b><span class="time">12ms</span></div>
+              <div class="agent"><div class="dot"></div><b>Search Agent</b><span class="time">184ms</span></div>
+              <div class="agent"><div class="dot"></div><b>RAG Reader</b><span class="time">39ms</span></div>
+              <div class="agent"><div class="dot"></div><b>Risk Analyst</b><span class="time">22ms</span></div>
+            </div>
+            <div class="panel">
+              <div class="label">Executive briefing</div>
+              <div class="summary">NVIDIA AI infrastructure screens as constructive. Demand and enterprise adoption remain the strongest opportunities while supply, valuation, and regulatory scrutiny are the watchouts.</div>
+              <div class="metrics">
+                <div class="metric"><strong>18%</strong><span class="time">Revenue growth</span></div>
+                <div class="metric"><strong>240bps</strong><span class="time">Margin signal</span></div>
+                <div class="metric"><strong>116%</strong><span class="time">Retention proxy</span></div>
+              </div>
+              <div class="riskgrid">
+                <div class="chip risk">Risk: execution and regulatory pressure</div>
+                <div class="chip">Opportunity: AI infrastructure demand</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="viz">
+        <div class="mini"><div class="label">Source retrieval</div><div class="bar"><span></span></div><p>Search results are deduplicated, chunked, and ranked by evidence relevance.</p></div>
+        <div class="mini"><div class="label">Structured extraction</div><div class="bar"><span></span></div><p>Pydantic models keep risks, metrics, facts, and citations clean enough to export.</p></div>
+        <div class="mini"><div class="label">Analyst output</div><div class="bar"><span></span></div><p>The Streamlit UI behaves like a compact research terminal for fast decision support.</p></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signalbrief"
+version = "0.1.0"
+description = "Autonomous AI analyst briefing system for company and market research."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Mohamad Kanso" }]
+dependencies = [
+  "langgraph>=0.2.60",
+  "pydantic>=2.7",
+  "streamlit>=1.37",
+  "pandas>=2.2",
+  "plotly>=5.22",
+  "python-dotenv>=1.0",
+  "requests>=2.32",
+  "tavily-python>=0.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "ruff>=0.6.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"streamlit_app.py" = ["E402"]

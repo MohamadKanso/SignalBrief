@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SignalBrief logo">
+  <rect width="64" height="64" rx="14" fill="#111827"/>
+  <path d="M16 42 30 24l9 9 9-14" fill="none" stroke="#5eead4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="16" cy="42" r="4" fill="#60a5fa"/>
+  <circle cx="30" cy="24" r="4" fill="#60a5fa"/>
+  <circle cx="39" cy="33" r="4" fill="#60a5fa"/>
+  <circle cx="48" cy="19" r="4" fill="#60a5fa"/>
+</svg>
+
