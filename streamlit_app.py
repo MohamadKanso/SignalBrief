@@ -232,7 +232,7 @@ def render_briefing(briefing) -> None:
             st.caption(opportunity.rationale)
     with right:
         st.markdown("#### Sentiment")
-        st.plotly_chart(sentiment_chart(briefing.sentiment.score), use_container_width=True)
+        st.plotly_chart(sentiment_chart(briefing.sentiment.score), width="stretch")
         st.markdown(f"**{briefing.sentiment.label}**")
         for driver in briefing.sentiment.drivers:
             st.caption(driver)
@@ -263,7 +263,7 @@ def main() -> None:
     with controls[0]:
         topic = st.text_input("Company or topic", value=briefing.topic, label_visibility="collapsed")
     with controls[1]:
-        if st.button("Run Briefing", use_container_width=True):
+        if st.button("Run Briefing", width="stretch"):
             run(topic)
             st.rerun()
 
@@ -281,10 +281,10 @@ def main() -> None:
             data=payload,
             file_name=f"signalbrief-{briefing.topic.lower().replace(' ', '-')}.json",
             mime="application/json",
-            use_container_width=True,
+            width="stretch",
         )
         df = pd.DataFrame([m.model_dump() for m in briefing.metrics])
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        st.dataframe(df, width="stretch", hide_index=True)
 
 
 if __name__ == "__main__":
