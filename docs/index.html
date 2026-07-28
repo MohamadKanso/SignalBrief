@@ -132,6 +132,29 @@
       .metrics { grid-template-columns: 1fr; }
     }
   </style>
+  <style data-redesign="editorial-square">
+    :root { --ink: #1e2424; --muted: #68706c; --line: #c9cbc4; --blue: #3f6170; --teal: #65765e; --amber: #9a6c35; --red: #a84f46; --bg: #efeee9; }
+    *, *::before, *::after { border-radius: 0 !important; box-shadow: none !important; background-image: none !important; }
+    body { color: var(--ink); background: var(--bg); font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    .shell { width: min(1240px, calc(100vw - 48px)); }
+    header { padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .mark { width: 32px; height: 32px; background: var(--ink); border: 1px solid var(--ink); }
+    .mark:after { border-color: #efeee9; }
+    nav a { color: var(--ink); font-weight: 700; }
+    main { padding-top: 58px; }
+    h1 { max-width: 760px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(52px, 8vw, 100px); font-weight: 400; line-height: .92; letter-spacing: -.045em; }
+    p { color: var(--muted); }
+    .button, .run { border: 1px solid var(--ink); background: transparent; color: var(--ink); }
+    .button.primary, .run { background: var(--ink); color: var(--bg); }
+    .terminal, .panel, .brief-board, .evidence-card, .json, .metric, .chip { border: 1px solid var(--line); background: #f7f6f1; }
+    .terminal { padding: 0; }
+    .query { padding: 14px; border-bottom: 1px solid var(--line); margin: 0; }
+    .input { border-color: var(--line); background: transparent; color: var(--muted); }
+    .dot { background: #dfe3dd; }
+    .dot:after { background: var(--teal); animation: none; }
+    .chip { border-left: 3px solid var(--teal); background: #f0f1eb; }
+    .chip.risk { border-left-color: var(--red); background: #f4ebe7; }
+  </style>
 </head>
 <body>
   <div class="shell">
